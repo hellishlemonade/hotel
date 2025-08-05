@@ -210,3 +210,6 @@ __marimo__/
 *.jpg
 *.jpeg
 *.webp
+
+# Migrations
+migrations/
