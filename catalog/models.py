@@ -1,3 +1,5 @@
+from slugify import slugify
+
 from django.db import models
 from django.core.validators import MaxValueValidator
 
@@ -68,7 +70,7 @@ class HotelRoom(models.Model):
         'Название', unique=True, max_length=TITLE_MAX_LENGTH
     )
     slug = models.SlugField(
-        'Слаг', unique=True, max_length=SLUG_MAX_LENGTH
+        'Слаг', unique=True, max_length=SLUG_MAX_LENGTH, blank=True
     )
     hotel = models.ManyToManyField(Hotel, verbose_name='Отели')
     kind = models.ForeignKey(
@@ -86,3 +88,8 @@ class HotelRoom(models.Model):
 
     def __str__(self):
         return f'Номер: {self.title}, Отель: {self.hotel}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
