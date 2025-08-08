@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Room List</h1>
+
+    {% if rooms %}
+    <ul>
+
+      {% for room in rooms %}
+      <li>
+        <a href="{% url 'room' room.slug %}">{{ room.title }}</a>
+      </li>
+      <li>
+        <p>{{ room.description }}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no rooms in the database.</p>
+    {% endif %}
+{% endblock %}

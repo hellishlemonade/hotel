@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from .models import Hotel, HotelRoom, Kind
 
@@ -19,3 +20,14 @@ def index(request):
             'num_kinds': num_kinds,
         }
     )
+
+
+class HotelRoomListView(generic.ListView):
+    model = HotelRoom
+    context_object_name = 'rooms'
+    paginate_by = 10
+
+
+class HotelRoomDetailView(generic.DetailView):
+    model = HotelRoom
+    context_object_name = 'room'

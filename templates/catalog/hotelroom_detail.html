@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>Title: {{ room.title }}</h1>
+
+  <p><strong>Kind:</strong> <a href="">{{ room.kind }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Persons:</strong> {{ room.kind.number_of_guests }}</p>
+  <p><strong>Description:</strong> {{ room.description }}</p>
+  <p><strong>Image:</strong><img src="{{ room.main_img.url }}"></p>
+
+{% endblock %}
