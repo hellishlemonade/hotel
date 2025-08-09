@@ -11,7 +11,7 @@ User = get_user_model()
 class SignUpForm(UserCreationForm):
 
     email = forms.EmailField(
-        max_length=EMAIL_MAX_LENGTH, help_text='Обязательное поле'
+        max_length=EMAIL_MAX_LENGTH
     )
 
     class Meta:
