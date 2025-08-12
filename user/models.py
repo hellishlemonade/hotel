@@ -11,7 +11,7 @@ class Profile(AbstractUser):
     username = None
     first_name = models.CharField('Имя', max_length=NAME_MAX_LENGTH)
     last_name = models.CharField('Фамилия', max_length=NAME_MAX_LENGTH)
-    REQUIRED_FIELDS = [first_name, last_name]
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta:
         verbose_name = 'пользователь'
