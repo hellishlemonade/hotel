@@ -1,5 +1,14 @@
-.sidebar-nav {
-  margin-top: 20px;
+.title {
+  font-size: 128px;
+  margin: 0;
   padding: 0;
-  list-style: none;
+}
+
+.header {
+  font-size: 20px;
+  color: rgba(0, 123, 255, 1);
+  text-decoration: none;
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
 }
