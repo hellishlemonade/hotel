@@ -1,5 +1,6 @@
 asgiref==3.9.1
 Django==4.2.23
+django-crispy-forms==2.4
 pillow==11.3.0
 python-slugify==8.0.4
 sqlparse==0.5.3
