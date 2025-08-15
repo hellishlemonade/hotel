@@ -1,0 +1,48 @@
+header {
+  font-family: "Lora";
+  background-color: white;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
+}
+
+.header-main-menu {
+  height: 33.33%;
+}
+
+.header-main-menu div {
+  display: flex;
+  align-items: center;
+}
+
+.booking-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-link {
+  text-align: center;
+  font-size: 28px;
+  color: black;
+  transition-duration: 0.6s;
+}
+
+.booking-link:hover {
+  color:rgb(91, 91, 91);
+  text-decoration: none;
+}
+
+.header-link {
+  font-size: 20px;
+  color: black;
+  transition-duration: 0.6s;
+}
+
+  
+.header-link:hover {
+  color:rgb(91, 91, 91);
+  text-decoration: none;
+}

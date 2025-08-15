@@ -2,18 +2,35 @@
 <div class="container d-flex flex-column">
   <div class="row" style="height: 170px;">
     <div class="col-3 mt-auto">
-      <img src="media/hotel-logo.png" height="170px">
+      <img src="{{ MEDIA_URL }}/media/hotel-logo.png" height="170px">
     </div>
-    <div class="col-6">
+    <div class="col-6 booking-block">
+      <div class="row">
+        <div class="col-12">
+          <a href="" class="booking-link">Забронировать</a>
+        </div>
+      </div>
     </div>
-    <div class="col-1 mt-auto">
-      <a href="" class="header mt-auto">Номера</a>
-    </div>
-    <div class="col-1 mt-auto">
-      <a href="" class="header">Отели</a>
-    </div>
-    <div class="col-1 mt-auto">
-      <a href="" class="header">Услуги</a>
+    <div class="col-3">
+      <div class="row header-main-menu">
+        <div class="col-12">
+          <a href="" class="header-link">Номера</a>
+        </div>
+      </div>
+      <div class="row header-main-menu">
+        <div class="col-4">
+        </div>
+        <div class="col-8">
+          <a href="" class="header-link">Услуги</a>
+        </div>
+      </div>
+      <div class="row header-main-menu">
+        <div class="col-8">
+        </div>
+        <div class="col-4">
+          <a href="" class="header-link">Отели</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
