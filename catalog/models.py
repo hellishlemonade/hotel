@@ -76,6 +76,14 @@ class HotelRoom(models.Model):
     kind = models.ForeignKey(
         Kind, on_delete=models.CASCADE,  verbose_name='Вид'
     )
+    max_number_of_guests = models.PositiveSmallIntegerField(
+        'Максимальное количество гостей',
+        validators=[MaxValueValidator(
+            MAX_GUESTS_VALUE,
+            ('Превышено количество гостей, '
+             f'введите значение меньше или равное {MAX_GUESTS_VALUE}')
+        )]
+    )
     description = models.TextField(
         'Описание', max_length=DESCRIPTION_MAX_LENGTH
     )
