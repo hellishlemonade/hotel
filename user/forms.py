@@ -1,7 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, ButtonHolder, Submit, Field
-from crispy_forms.bootstrap import AppendedText
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
 
@@ -40,5 +39,21 @@ class SignUpForm(UserCreationForm):
             ButtonHolder(
                 Submit(
                     'submit', 'Зарегистрироваться', css_class='button white')
+            )
+        )
+
+
+class LoginForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            HTML('<div class="my-form">Вход</div>'),
+            Field('username'),
+            Field('password'),
+            ButtonHolder(
+                Submit(
+                    'submit', 'Войти', css_class='button white')
             )
         )
