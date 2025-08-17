@@ -87,6 +87,7 @@ class HotelRoom(models.Model):
     description = models.TextField(
         'Описание', max_length=DESCRIPTION_MAX_LENGTH
     )
+    price = models.PositiveIntegerField('Цена за ночь')
     main_img = models.ImageField(upload_to=hotel_room_directory_path)
 
     class Meta:

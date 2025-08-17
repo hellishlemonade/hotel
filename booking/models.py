@@ -32,11 +32,8 @@ class Booking(models.Model):
         'Количество гостей',
         validators=[MinValueValidator(1, 'Минимум 1 гость')]
     )
-    total_price = models.DecimalField(
+    total_price = models.PositiveIntegerField(
         'Общая стоимость',
-        max_digits=10,
-        decimal_places=2,
-        null=True,
         blank=True
     )
 
@@ -59,3 +56,11 @@ class Booking(models.Model):
         if self.check_in_date < timezone.now().date():
             raise ValidationError('Дата заселения не может быть в прошлом')
         return super().clean()
+
+    def save(self, *args, **kwargs):
+        if not self.total_price:
+            self.total_price = (
+                (self.check_out_date - self.check_in_date).days
+                * self.room.price
+            )
+        return super().save(*args, **kwargs)
