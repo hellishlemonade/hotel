@@ -1,0 +1,52 @@
+.room-card {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  height: 450px;
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 15px;
+  font-family: "Source Sans 3";
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+  transform: scale(1.02);
+}
+
+.room-image {
+  overflow: hidden;
+  height: 230px;
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-title {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.room-description {
+  color:rgb(143, 143, 143);
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.room-price {
+  position: absolute;
+  bottom: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: bottom;
+}
+
+.user-info i {
+  margin-bottom: 8px;
+}

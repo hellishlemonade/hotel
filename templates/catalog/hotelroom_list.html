@@ -1,22 +1,33 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-    <h1>Room List</h1>
-
+  <div class="container">
+    <div class="row">
     {% if rooms %}
-    <ul>
-
       {% for room in rooms %}
-      <li>
-        <a href="{% url 'room' room.slug %}">{{ room.title }}</a>
-      </li>
-      <li>
-        <p>{{ room.description }}</p>
-      </li>
+        <div class="col-4">
+          <div class="room-card">
+            <a href="{{ room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ room.title }}"></a>
+              <div class="room-image">
+                <img src="{{ room.main_img.url }}" alt="{{ room.title }}">
+              </div>
+              <div class="room-info">
+                <div class="col-12 room-title">
+                  {{ room.title }}
+                </div>
+                <div class="col-12 room-description">
+                  {{ room.description }}
+                </div>
+                <div class="col-12 room-price">
+                  {{ room.price }} ₽
+                </div>
+              </div>
+          </div>
+        </div>
       {% endfor %}
-
-    </ul>
     {% else %}
       <p>There are no rooms in the database.</p>
     {% endif %}
+    </div>
+  </div>
 {% endblock %}
