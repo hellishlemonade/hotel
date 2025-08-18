@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="user">
+    <div class="col-12">
+      <div class="user-info">
+        <div class="row">
+          <div class="col-12">
+            <p class="profile-title">Профиль</p>
+            <div class="username">
+              {{ user.first_name }} {{ user.last_name }}
+            </div>
+            {{ user.email }}
+            <hr>
+          </div>
+          <div class="col-12">
+            <p class="booking-title">Бронирования</p>
+            {% if bookings %}
+            <div class="row">
+            <p class="booking-active col-12">Активные</p>
+            {% for booking in bookings %}
+              <div class="col-3">
+                <div class="booking">
+                  <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
+                  <div class="booking-image">
+                    <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
+                  </div>
+                  <div class="col-12">{{ booking.room.title }}</div>
+                  <div class="col-12">Заселение: {{ booking.check_in_date }}</div>
+                  <div class="col-12">Выезд: {{ booking.check_out_date }}</div>
+                </div>
+              </div>
+            {% endfor %}
+
+            {% endif %}
+            {% if bookings_isnt_active %}
+            <div class="row">
+            <p class="booking-active col-12">История заказов</p>
+            {% for booking in bookings_isnt_active %}
+              <div class="col-3">
+                <div class="booking">
+                  <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
+                  <div class="booking-image">
+                    <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
+                  </div>
+                  <div class="col-12">{{ booking.room.title }}</div>
+                  <div class="col-12">Заселение: {{ booking.check_in_date }}</div>
+                  <div class="col-12">Выезд: {{ booking.check_out_date }}</div>
+                </div>
+              </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

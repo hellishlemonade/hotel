@@ -1,0 +1,60 @@
+.user {
+  position: relative;
+  font-family: "Source Sans 3";
+  margin-top: 24px;
+  font-size: 24px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.profile-title {
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+.username {
+  margin-top: 0px;
+  font-size: 36px;
+}
+
+.booking-title {
+  margin-bottom: 8px;
+}
+
+.booking {
+  position: relative;
+  height: 250px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 300;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px 2px rgba(107, 107, 107, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.booking:hover {
+  transform: scale(1.02);
+}
+
+.booking-image {
+  overflow: hidden;
+  height: 150px;
+}
+
+.booking-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin-top: 0;
+}
+
+.booking .col-12 {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.booking-active {
+  font-size: 20px;
+}
