@@ -6,6 +6,7 @@ from django.views.generic import (
     DetailView,
 )
 from django.urls import reverse_lazy
+from django.utils import timezone
 
 from .forms import SignUpForm, LoginForm
 
@@ -38,5 +39,11 @@ class PersonalAccountView(LoginRequiredMixin, DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['bookings'] = self.request.user.bookings.all()
+        today = timezone.now().date()
+        context['bookings'] = self.request.user.bookings.filter(
+            check_out_date__gte=today
+        )
+        context['bookings_isnt_active'] = self.request.user.bookings.filter(
+            check_out_date__lt=today
+        )
         return context
