@@ -44,7 +44,7 @@ class Booking(models.Model):
         unique_together = ('room', 'check_in_date', 'check_out_date')
 
     def __str__(self):
-        return f'Бронирование: {self.id} / {self.guest} / {self.room}'
+        return f'Бронирование: {self.guest} / {self.room}'
 
     def clean(self):
         if self.guest_count > self.room.max_number_of_guests:
