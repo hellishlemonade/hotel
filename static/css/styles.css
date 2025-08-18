@@ -10,10 +10,13 @@ body {
 
 .my-form {
   font-size: 32px;
-
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
   margin-bottom: 20px;
+}
+
+.registration-form {
+  font-family: "Source Sans 3";
 }
 
 .asteriskField {
