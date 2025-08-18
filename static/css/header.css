@@ -68,7 +68,7 @@ header {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 5px;
+  bottom: 4px;
   width: 0;
   height: 1px;
   background: currentColor;
