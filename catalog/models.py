@@ -38,29 +38,6 @@ class Hotel(models.Model):
         return f'Отель: {self.title}, Город: {self.city}'
 
 
-class Kind(models.Model):
-
-    title = models.CharField(
-        'Название', unique=True, max_length=TITLE_MAX_LENGTH
-    )
-    number_of_guests = models.PositiveSmallIntegerField(
-        'Количество гостей',
-        validators=[MaxValueValidator(
-            MAX_GUESTS_VALUE,
-            ('Превышено количество гостей, '
-             f'введите значение меньше или равное {MAX_GUESTS_VALUE}')
-        )]
-    )
-
-    class Meta:
-        verbose_name = 'вид'
-        verbose_name_plural = 'Виды'
-        ordering = ('title', 'number_of_guests')
-
-    def __str__(self):
-        return f'Вид: {self.title}'
-
-
 def hotel_room_directory_path(instance, filename):
     return '{0}/{1}'.format(instance.slug, filename)
 
@@ -74,9 +51,6 @@ class HotelRoom(models.Model):
         'Слаг', unique=True, max_length=SLUG_MAX_LENGTH, blank=True
     )
     hotel = models.ManyToManyField(Hotel, verbose_name='Отели')
-    kind = models.ForeignKey(
-        Kind, on_delete=models.CASCADE,  verbose_name='Вид'
-    )
     max_number_of_guests = models.PositiveSmallIntegerField(
         'Максимальное количество гостей',
         validators=[MaxValueValidator(

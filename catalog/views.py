@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Hotel, HotelRoom, Kind
+from .models import Hotel, HotelRoom
 
 
 CATALOG_TEMPLATE_DIR = 'catalog/'
@@ -10,14 +10,12 @@ CATALOG_TEMPLATE_DIR = 'catalog/'
 def index(request):
     num_hotels = Hotel.objects.all().count()
     num_rooms = HotelRoom.objects.all().count()
-    num_kinds = Kind.objects.all().count()
     return render(
         request,
         f'{CATALOG_TEMPLATE_DIR}index.html',
         context={
             'num_hotels': num_hotels,
             'num_rooms': num_rooms,
-            'num_kinds': num_kinds,
         }
     )
 
@@ -31,3 +29,6 @@ class HotelRoomListView(generic.ListView):
 class HotelRoomDetailView(generic.DetailView):
     model = HotelRoom
     context_object_name = 'room'
+    
+    def get_queryset(self):
+        return HotelRoom.objects.prefetch_related('hotel')
