@@ -14,45 +14,127 @@
             {{ user.email }}
             <hr>
           </div>
+          
+          <!-- Активные бронирования -->
+          {% if bookings %}
           <div class="col-12">
-            <p class="booking-title">Бронирования</p>
-            {% if bookings %}
+            <h3 class="booking-title">Активные бронирования</h3>
             <div class="row">
-            <p class="booking-active col-12">Активные</p>
-            {% for booking in bookings %}
-              <div class="col-3">
-                <div class="booking">
-                  <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
-                  <div class="booking-image">
-                    <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
+              {% for booking in bookings %}
+                <div class="col-md-4 col-lg-3 mb-4">
+                  <div class="room-detail profile-card">
+                    <div class="room-detail-image">
+                      <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
+                    </div>
+                    <div class="room-detail-content">
+                      <h4 class="room-detail-title">{{ booking.room.title }}</h4>
+                      
+                      <div class="room-info-grid">
+                        <div class="room-info-card">
+                          <h5 class="room-info-title">
+                            <i class="fas fa-calendar-check"></i>
+                            Даты
+                          </h5>
+                          <p class="room-info-value">
+                            Заселение: {{ booking.check_in_date|date:"d.m.Y" }}
+                          </p>
+                          <p class="room-info-value">
+                            Выезд: {{ booking.check_out_date|date:"d.m.Y" }}
+                          </p>
+                        </div>
+                        
+                        <div class="room-info-card">
+                          <h5 class="room-info-title">
+                            <i class="fas fa-users"></i>
+                            Гости
+                          </h5>
+                          <p class="room-info-value">
+                            {{ booking.guest_count }} человек
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div class="room-price-section">
+                        <p class="room-price-label">Общая стоимость</p>
+                        <h5 class="room-price-value">{{ booking.total_price }} ₽</h5>
+                      </div>
+                      
+                      <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
+                    </div>
                   </div>
-                  <div class="col-12">{{ booking.room.title }}</div>
-                  <div class="col-12">Заселение: {{ booking.check_in_date }}</div>
-                  <div class="col-12">Выезд: {{ booking.check_out_date }}</div>
                 </div>
-              </div>
-            {% endfor %}
-
-            {% endif %}
-            {% if bookings_isnt_active %}
-            <div class="row">
-            <p class="booking-active col-12">История заказов</p>
-            {% for booking in bookings_isnt_active %}
-              <div class="col-3">
-                <div class="booking">
-                  <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
-                  <div class="booking-image">
-                    <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
-                  </div>
-                  <div class="col-12">{{ booking.room.title }}</div>
-                  <div class="col-12">Заселение: {{ booking.check_in_date }}</div>
-                  <div class="col-12">Выезд: {{ booking.check_out_date }}</div>
-                </div>
-              </div>
-            {% endfor %}
-            {% endif %}
+              {% endfor %}
             </div>
           </div>
+          {% endif %}
+
+          <!-- История заказов -->
+          {% if bookings_isnt_active %}
+          <div class="col-12">
+            <h3 class="booking-title">История заказов</h3>
+            <div class="row">
+              {% for booking in bookings_isnt_active %}
+                <div class="col-md-4 col-lg-3 mb-4">
+                  <div class="room-detail profile-card" style="opacity: 0.7;">
+                    <div class="room-detail-image">
+                      <img src="{{ booking.room.main_img.url }}" alt="{{ booking.room.title }}">
+                    </div>
+                    <div class="room-detail-content">
+                      <h4 class="room-detail-title">{{ booking.room.title }}</h4>
+                      
+                      <div class="room-info-grid">
+                        <div class="room-info-card">
+                          <h5 class="room-info-title">
+                            <i class="fas fa-calendar-times"></i>
+                            Даты
+                          </h5>
+                          <p class="room-info-value">
+                            Заселение: {{ booking.check_in_date|date:"d.m.Y" }}
+                          </p>
+                          <p class="room-info-value">
+                            Выезд: {{ booking.check_out_date|date:"d.m.Y" }}
+                          </p>
+                        </div>
+                        
+                        <div class="room-info-card">
+                          <h5 class="room-info-title">
+                            <i class="fas fa-users"></i>
+                            Гости
+                          </h5>
+                          <p class="room-info-value">
+                            {{ booking.guest_count }} человек(a)
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div class="room-price-section" style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);">
+                        <p class="room-price-label">Общая стоимость</p>
+                        <h5 class="room-price-value">{{ booking.total_price }} ₽</h5>
+                      </div>
+                      
+                      <a href="{{ booking.room.get_absolute_url }}" class="stretched-link" aria-label="Подробнее о {{ booking.room.title }}"></a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Сообщение если нет бронирований -->
+          {% if not bookings and not bookings_isnt_active %}
+          <div class="col-12">
+            <div class="room-detail" style="text-align: center; padding: 60px 30px;">
+              <i class="fas fa-calendar-times" style="font-size: 48px; color: #6c757d; margin-bottom: 20px;"></i>
+              <h3 style="color: #6c757d; margin-bottom: 15px;">У вас пока нет бронирований</h3>
+              <p style="color: #6c757d; margin-bottom: 30px;">Забронируйте номер для отдыха в наших отелях</p>
+              <a href="{% url 'rooms' %}" class="btn-book-now" style="display: inline-block;">
+                <i class="fas fa-search"></i>
+                Посмотреть номера
+              </a>
+            </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
