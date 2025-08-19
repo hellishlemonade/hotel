@@ -1,11 +1,88 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-  <h1>Title: {{ room.title }}</h1>
+<div class="container">
+  <div class="room-detail">
+    <!-- Заголовок с градиентом -->
+    <div class="room-detail-header">
+      <h1 class="room-detail-title">{{ room.title }}</h1>
+      <p class="room-detail-subtitle">{{ room.max_number_of_guests }} гостей</p>
+    </div>
 
-  <p><strong>Kind:</strong> <a href="">{{ room.kind }}</a></p> <!-- author detail link not yet defined -->
-  <p><strong>Persons:</strong> {{ room.kind.number_of_guests }}</p>
-  <p><strong>Description:</strong> {{ room.description }}</p>
-  <p><strong>Image:</strong><img src="{{ room.main_img.url }}"></p>
-
+    <div class="room-detail-content">
+      <div class="row">
+        <!-- Левая колонка с изображением -->
+        <div class="col-md-5">
+          <div class="room-detail-image">
+            <img src="{{ room.main_img.url }}" alt="{{ room.title }}">
+          </div>
+        </div>
+        
+        <!-- Правая колонка с информацией -->
+        <div class="col-md-7">
+          <!-- Информационная сетка -->
+          <div class="room-info-grid">
+            <!-- Вместимость -->
+            <div class="room-info-card">
+              <h3 class="room-info-title">
+                <i class="fas fa-users"></i>
+                Вместимость
+              </h3>
+              <p class="room-info-value">Максимум гостей: {{ room.max_number_of_guests }}</p>
+            </div>
+            
+            <!-- Отели -->
+            <div class="room-info-card">
+              <h3 class="room-info-title">
+                <i class="fas fa-hotel"></i>
+                Отели
+              </h3>
+              {% for hotel in room.hotel.all %}
+                <p class="room-info-value">{{ hotel.title }}</p>
+                <p class="room-info-value">{{ hotel.city }}, {{ hotel.get_country_display }}</p>
+              {% endfor %}
+            </div>
+            
+            <!-- Цена -->
+            <div class="room-info-card">
+              <h3 class="room-info-title">
+                <i class="fas fa-tag"></i>
+                Стоимость
+              </h3>
+              <p class="room-info-value">{{ room.price }} ₽ за ночь</p>
+            </div>
+          </div>
+          
+          <!-- Описание -->
+          <div class="room-description-section">
+            <h3 class="room-description-title">
+              <i class="fas fa-info-circle"></i>
+              Описание номера
+            </h3>
+            <p class="room-description-text">{{ room.description }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Секция с ценой и кнопками -->
+      <div class="room-price-section">
+        <p class="room-price-label">Стоимость за ночь</p>
+        <h2 class="room-price-value">{{ room.price }} ₽</h2>
+        <p class="room-price-per-night">за ночь</p>
+        
+        <div class="room-actions">
+          <a href="#" class="btn-book-now">
+            <i class="fas fa-calendar-check"></i>
+            Забронировать
+          </a>
+          <a href="{% url 'rooms' %}" class="btn-back">
+            <i class="fas fa-arrow-left"></i>
+            Назад к номерам
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
