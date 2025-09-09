@@ -2,8 +2,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, ButtonHolder, Submit, Field
 from django import forms
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
-from .models import Booking
+from .models import Booking, HotelRoom
 
 
 class BookingCreateForm(forms.ModelForm):
@@ -32,12 +33,14 @@ class BookingCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.room = kwargs.pop('room', None)
+        self.guest = kwargs.pop('guest', None)
         super().__init__(*args, **kwargs)
         today = timezone.now().date().isoformat()
         # Ограничиваем выбор дат сегодняшним днём и позже
         self.fields["check_in_date"].widget.attrs.setdefault("min", today)
         self.fields["check_out_date"].widget.attrs.setdefault("min", today)
-        
+
         # Настройка crispy forms
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -49,3 +52,13 @@ class BookingCreateForm(forms.ModelForm):
                 Submit('submit', 'Забронировать', css_class='btn-book-submit')
             )
         )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.room and 'guest_count' in cleaned_data:
+            if cleaned_data['guest_count'] > self.room.max_number_of_guests:
+                self.add_error('guest_count',
+                               'Максимальное количество гостей: '
+                               f'{self.room.max_number_of_guests}'
+                               )
+        return cleaned_data
