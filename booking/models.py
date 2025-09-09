@@ -47,9 +47,6 @@ class Booking(models.Model):
         return f'Бронирование: {self.guest} / {self.room}'
 
     def clean(self):
-        if self.guest_count > self.room.max_number_of_guests:
-            raise ValidationError(
-                'Значение не может быть больше чем в связанной модели')
         if self.check_in_date >= self.check_out_date:
             raise ValidationError(
                 'Дата выезда должна быть позже даты заселения')
@@ -58,6 +55,9 @@ class Booking(models.Model):
         return super().clean()
 
     def save(self, *args, **kwargs):
+        if self.guest_count > self.room.max_number_of_guests:
+            raise ValidationError(
+                'Значение не может быть больше чем в связанной модели')
         if not self.total_price:
             self.total_price = (
                 (self.check_out_date - self.check_in_date).days
