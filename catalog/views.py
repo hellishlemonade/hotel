@@ -29,6 +29,11 @@ class HotelRoomListView(generic.ListView):
 class HotelRoomDetailView(generic.DetailView):
     model = HotelRoom
     context_object_name = 'room'
-    
+
     def get_queryset(self):
         return HotelRoom.objects.prefetch_related('hotel')
+
+
+class HotelList(generic.ListView):
+    model = Hotel
+    context_object_name = 'hotels'
